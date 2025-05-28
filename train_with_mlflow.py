@@ -13,11 +13,25 @@ from tensorflow.keras.layers import GlobalAveragePooling2D, Dense, Dropout, Inpu
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
+
+
+
+
+# Replace with your values
+DAGSHUB_USERNAME = "jadhavgaurav"
+DAGSHUB_REPO = "Kidney_disease_classification_cnn"
+DAGSHUB_TOKEN = "b488473ae5ff04ec493007592680c395a4ff9160"
+
+os.environ['MLFLOW_TRACKING_USERNAME'] = DAGSHUB_USERNAME
+os.environ['MLFLOW_TRACKING_PASSWORD'] = DAGSHUB_TOKEN
+mlflow.set_tracking_uri(f"https://dagshub.com/{DAGSHUB_USERNAME}/{DAGSHUB_REPO}.mlflow")
+
 # ------------------- Constants -------------------
 IMAGE_SIZE = (224, 224)
 BATCH_SIZE = 32
 EPOCHS = 100
 LEARNING_RATE = 1e-4
+
 TRAIN_DIR = "data/kidney_split/train"
 VAL_DIR = "data/kidney_split/val"
 
@@ -30,6 +44,7 @@ with mlflow.start_run(run_name=f"vgg16_run_{datetime.now().strftime('%Y%m%d_%H%M
     mlflow.log_param("image_size", IMAGE_SIZE)
     mlflow.log_param("batch_size", BATCH_SIZE)
     mlflow.log_param("epochs", EPOCHS)
+    mlflow.log_param("learning_rate", LEARNING_RATE)
 
     # ------------- Data Generators -------------
     train_datagen = ImageDataGenerator(

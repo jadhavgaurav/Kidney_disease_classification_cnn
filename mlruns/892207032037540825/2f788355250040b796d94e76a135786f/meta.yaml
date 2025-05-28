@@ -1,5 +1,5 @@
 artifact_uri: file:///D:/gaura/Project/kidney/new%20kidney%20classification/mlruns/892207032037540825/2f788355250040b796d94e76a135786f/artifacts
-end_time: null
+end_time: 1748456774858
 entry_point_name: ''
 experiment_id: '892207032037540825'
 lifecycle_stage: active
@@ -10,6 +10,6 @@ source_name: ''
 source_type: 4
 source_version: ''
 start_time: 1748454226337
-status: 1
+status: 4
 tags: []
 user_id: gaura
