@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/gaura/Project/kidney/new%20kidney%20classification/mlruns/694499394634349088/8e018e30205e4b41b79115c7e6d96175/artifacts
+end_time: 1748454159237
+entry_point_name: ''
+experiment_id: '694499394634349088'
+lifecycle_stage: active
+run_id: 8e018e30205e4b41b79115c7e6d96175
+run_name: delightful-kite-81
+run_uuid: 8e018e30205e4b41b79115c7e6d96175
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1748453756140
+status: 4
+tags: []
+user_id: gaura

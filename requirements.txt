@@ -1,0 +1,21 @@
+# Core ML
+# tensorflow==2.10.0
+# numpy==1.24.3
+scikit-learn==1.3.2
+pandas==2.1.4
+matplotlib==3.8.4
+seaborn==0.13.2
+
+# Web app (Streamlit)
+streamlit==1.35.0
+
+# SHAP & Explainability
+shap==0.45.0
+
+# Preprocessing
+scipy==1.11.4
+
+# Others (optional for interactivity, performance)
+joblib==1.4.2
+
+protobuf==3.20.*

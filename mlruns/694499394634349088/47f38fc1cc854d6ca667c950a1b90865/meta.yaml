@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/gaura/Project/kidney/new%20kidney%20classification/mlruns/694499394634349088/47f38fc1cc854d6ca667c950a1b90865/artifacts
+end_time: 1748453666310
+entry_point_name: ''
+experiment_id: '694499394634349088'
+lifecycle_stage: active
+run_id: 47f38fc1cc854d6ca667c950a1b90865
+run_name: abundant-crab-610
+run_uuid: 47f38fc1cc854d6ca667c950a1b90865
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1748451432048
+status: 4
+tags: []
+user_id: gaura
