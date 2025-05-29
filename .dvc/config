@@ -1,0 +1,8 @@
+[core]
+    remote = origin
+['remote "origin"']
+    url = s3://jadhavgaurav/Kidney_disease_classification_cnn
+    endpointurl = https://dagshub.com/api/v1/repo/buckets/s3/jadhavgaurav
+    region = us-east-1
+    access_key_id = jadhavgaurav
+    secret_access_key = ab7647621668ceb0a82d8c76534c9c073d2ef803
