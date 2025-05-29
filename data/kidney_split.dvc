@@ -1,0 +1,6 @@
+outs:
+- md5: 31f45b9e3606d32e383a2eecab6462a7.dir
+  size: 1661580918
+  nfiles: 12446
+  hash: md5
+  path: kidney_split
