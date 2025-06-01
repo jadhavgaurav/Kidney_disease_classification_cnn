@@ -101,9 +101,9 @@ with mlflow.start_run(run_name=f"vgg16_run_{datetime.now().strftime('%Y%m%d_%H%M
     x = base_model.output
     x = GlobalAveragePooling2D()(x)
     x = Dense(128, activation='relu')(x)
-    x = Dropout(0.3)(x)
+    x = Dropout(0.5)(x)
     x = Dense(64, activation='relu')(x)
-    x = Dropout(0.3)(x)
+    x = Dropout(0.5)(x)
     outputs = Dense(num_classes, activation='softmax')(x)
 
     model = Model(inputs=base_model.input, outputs=outputs)
