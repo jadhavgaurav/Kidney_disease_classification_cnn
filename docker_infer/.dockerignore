@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pkl
+*.log
+.dvc/
+.git/
+mlruns/
+mlflowruns/
+testing_images/
+data/
+research/
+secrets/
