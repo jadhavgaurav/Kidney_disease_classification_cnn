@@ -1,58 +1,69 @@
 import os
-import mlflow.keras
+import mlflow
 import numpy as np
-from PIL import Image
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, request, render_template, redirect, url_for
 from werkzeug.utils import secure_filename
+from tensorflow.keras.preprocessing import image
+from tensorflow.keras.applications.vgg16 import preprocess_input
 
-# Initialize Flask app
+# Flask Configuration
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
-# Load model from DagsHub (MLflow tracking URI)
+# MLflow Tracking Configuration (DagsHub)
 mlflow.set_tracking_uri("https://dagshub.com/jadhavgaurav/Kidney_disease_classification_cnn.mlflow")
-model_name = "KidneyDiseaseVGG16"
-model_version = "1"
-model = mlflow.keras.load_model(f"models:/{model_name}/{model_version}")
+MODEL_URI = "models:/KidneyDiseaseVGG16/1"
+model = mlflow.keras.load_model(MODEL_URI)
 
-# Labels for prediction
-class_labels = ["Cyst", "Normal", "Stone", "Tumor"]
+# Label Mapping
+CLASS_NAMES = ['Cyst', 'Normal', 'Stone', 'Tumor']
 
-def preprocess_image(image_path):
-    img = Image.open(image_path).convert('RGB')
-    img = img.resize((224, 224))  # VGG16 input size
-    img_array = np.array(img)
-    img_array = img_array / 255.0
+# Image Preprocessing Function
+def preprocess_image(img_path):
+    img = image.load_img(img_path, target_size=(224, 224))
+    img_array = image.img_to_array(img)
     img_array = np.expand_dims(img_array, axis=0)
+    img_array = preprocess_input(img_array)
     return img_array
 
-@app.route('/')
+# Home Route
+@app.route('/', methods=['GET', 'POST'])
 def index():
+    if request.method == 'POST':
+        if 'image' not in request.files:
+            return redirect(request.url)
+
+        file = request.files['image']
+        if file.filename == '':
+            return redirect(request.url)
+
+        if file:
+            filename = secure_filename(file.filename)
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(filepath)
+
+           # Preprocess and Predict
+            img = preprocess_image(filepath)
+            preds = model.predict(img)[0]
+            predicted_index = np.argmax(preds)
+            predicted_class = CLASS_NAMES[predicted_index]
+
+            # ✅ Keep confidence scores as floats (not strings with '%')
+            confidences = {CLASS_NAMES[i]: float(preds[i]) for i in range(len(CLASS_NAMES))}
+
+            return render_template('result.html',
+                                filename=filename,
+                                prediction=predicted_class,
+                                confidences=confidences)
+
     return render_template('index.html')
 
-@app.route('/predict', methods=['POST'])
-def predict():
-    if 'image' not in request.files:
-        return redirect(request.url)
+# Image Serving Route
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return url_for('static', filename='uploads/' + filename)
 
-    file = request.files['image']
-    if file.filename == '':
-        return redirect(request.url)
-
-    filename = secure_filename(file.filename)
-    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    file.save(file_path)
-
-    img_tensor = preprocess_image(file_path)
-    predictions = model.predict(img_tensor)
-    predicted_class = class_labels[np.argmax(predictions)]
-    confidence = round(100 * np.max(predictions), 2)
-
-    return render_template('result.html', 
-                           image_path=file_path, 
-                           predicted_class=predicted_class, 
-                           confidence=confidence)
-
+# Run Server
 if __name__ == '__main__':
     app.run(debug=True)

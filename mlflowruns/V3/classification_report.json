@@ -1,0 +1,39 @@
+{
+    "Cyst": {
+        "precision": 0.2978723404255319,
+        "recall": 1.0,
+        "f1-score": 0.45901639344262296,
+        "support": 742.0
+    },
+    "Normal": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 1016.0
+    },
+    "Stone": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 276.0
+    },
+    "Tumor": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 457.0
+    },
+    "accuracy": 0.2978723404255319,
+    "macro avg": {
+        "precision": 0.07446808510638298,
+        "recall": 0.25,
+        "f1-score": 0.11475409836065574,
+        "support": 2491.0
+    },
+    "weighted avg": {
+        "precision": 0.08872793119058398,
+        "recall": 0.2978723404255319,
+        "f1-score": 0.1367282874084409,
+        "support": 2491.0
+    }
+}
