@@ -1,0 +1,10 @@
+              precision    recall  f1-score   support
+
+        Cyst       1.00      1.00      1.00       742
+      Normal       1.00      1.00      1.00      1016
+       Stone       1.00      0.97      0.99       276
+       Tumor       1.00      1.00      1.00       457
+
+    accuracy                           1.00      2491
+   macro avg       1.00      0.99      1.00      2491
+weighted avg       1.00      1.00      1.00      2491

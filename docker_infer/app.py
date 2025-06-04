@@ -1,5 +1,8 @@
 import os
+import mlflow.pyfunc
 import mlflow
+from mlflow.tracking import MlflowClient
+import mlflow.keras
 import numpy as np
 from flask import Flask, request, render_template, redirect, url_for
 from werkzeug.utils import secure_filename
@@ -11,10 +14,23 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
+# DagsHub credentials
+DAGSHUB_USERNAME = "jadhavgaurav"
+DAGSHUB_REPO = "Kidney_disease_classification_cnn"
+DAGSHUB_TOKEN = "b488473ae5ff04ec493007592680c395a4ff9160"
+
+os.environ['MLFLOW_TRACKING_USERNAME'] = DAGSHUB_USERNAME
+os.environ['MLFLOW_TRACKING_PASSWORD'] = DAGSHUB_TOKEN
+
 # MLflow Tracking Configuration (DagsHub)
-mlflow.set_tracking_uri("https://dagshub.com/jadhavgaurav/Kidney_disease_classification_cnn.mlflow")
-MODEL_URI = "models:/KidneyDiseaseVGG16/1"
-model = mlflow.keras.load_model(MODEL_URI)
+mlflow.set_tracking_uri(f"https://dagshub.com/{DAGSHUB_USERNAME}/{DAGSHUB_REPO}.mlflow")
+# MODEL_URI = "models:/KidneyDiseaseVGG16/1"
+# model = mlflow.pyfunc.load_model(MODEL_URI)
+
+client = MlflowClient()
+model_uri = client.get_model_version_download_uri("KidneyDiseaseVGG16", "5")
+
+model = mlflow.keras.load_model(model_uri)
 
 # Label Mapping
 CLASS_NAMES = ['Cyst', 'Normal', 'Stone', 'Tumor']
@@ -66,4 +82,4 @@ def uploaded_file(filename):
 
 # Run Server
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", debug=True)

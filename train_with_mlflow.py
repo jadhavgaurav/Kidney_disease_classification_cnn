@@ -29,7 +29,7 @@ mlflow.set_tracking_uri(f"https://dagshub.com/{DAGSHUB_USERNAME}/{DAGSHUB_REPO}.
 IMAGE_SIZE = (224, 224)
 BATCH_SIZE = 32
 EPOCHS = 100
-LEARNING_RATE = 1e-5
+LEARNING_RATE = 1e-4
 TRAIN_DIR = "data/kidney_split/train"
 VAL_DIR = "data/kidney_split/val"
 mlf = "mlflowruns/V5/"
@@ -116,7 +116,7 @@ with mlflow.start_run(run_name=f"vgg16_run_{datetime.now().strftime('%Y%m%d_%H%M
     x = Dense(128, activation='relu')(x)
     x = Dropout(0.5)(x)
     x = Dense(64, activation='relu')(x)
-    x = Dropout(0.3)(x)
+    x = Dropout(0.5)(x)
     x = Dense(32, activation='relu')(x)
     # x = Dropout(0.5)(x)
     outputs = Dense(num_classes, activation='softmax')(x)
