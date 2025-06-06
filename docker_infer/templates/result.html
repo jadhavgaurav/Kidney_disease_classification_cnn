@@ -11,18 +11,25 @@
         .card-img-top {
             border-radius: 0.5rem 0.5rem 0 0;
         }
+        .card-body {
+            padding: 1rem; /* reduces inner spacing */
+        }
+
     </style>
 </head>
 <body class="bg-light">
 
-<div class="container py-5">
+<div class="container py-4">
     <h2 class="text-center mb-4">Prediction Result</h2>
 
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-6">
 
             <div class="card shadow">
-                <img src="{{ url_for('static', filename='uploads/' + filename) }}" class="card-img-top" alt="Uploaded Image">
+                <img src="{{ url_for('static', filename='uploads/' + filename) }}"
+                            class="card-img-top img-fluid mx-auto d-block"
+                            style="max-width: 400px; height: auto;" alt="Uploaded Image">
+
                 <div class="card-body">
                     <h4 class="card-title text-center text-success">
                         Predicted Class: <strong>{{ prediction }}</strong>
